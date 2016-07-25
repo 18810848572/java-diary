@@ -10,6 +10,19 @@ public class User {
 	private String imageName;
 	private String mood;
 	
+	
+	
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public User(String userName, String password) {
+		super();
+		this.userName = userName;
+		this.password = password;
+	}
+
 	public int getUserId() {
 		return userId;
 	}
