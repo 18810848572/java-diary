@@ -2,6 +2,7 @@ package com.java1234.model;
 
 public class User {
 	
+	private int id;
 	private int userId;
 	private String userName;
 	private String password;
