@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,7 @@ public class LoginServlet extends HttpServlet{
 		HttpSession session = request.getSession();
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
+		String remember = request.getParameter("remember");
 		Connection con = null;
 		try {
 			con = dbUtil.getCon();
@@ -40,6 +42,9 @@ public class LoginServlet extends HttpServlet{
 				request.setAttribute("error", "用户名或密码错误");
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}else{
+				if("remember-me".equals(remember)){
+					rememberMe(userName, password, response);
+				}
 				session.setAttribute("currentUser", currentUser);
 				response.sendRedirect("main.jsp");
 			}
@@ -54,6 +59,12 @@ public class LoginServlet extends HttpServlet{
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private void rememberMe(String userName,String password,HttpServletResponse response){
+		Cookie user = new Cookie("user",userName+"-"+password);
+		user.setMaxAge(1*60*60*24*7);
+		response.addCookie(user);
 	}
 	
 }
