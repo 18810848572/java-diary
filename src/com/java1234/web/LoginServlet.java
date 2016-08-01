@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet{
 					rememberMe(userName, password, response);
 				}
 				session.setAttribute("currentUser", currentUser);
-				response.sendRedirect("main.jsp");
+				response.sendRedirect("main");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
