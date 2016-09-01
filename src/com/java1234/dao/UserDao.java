@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 
 import com.java1234.model.User;
 import com.java1234.util.MD5Util;
+import com.java1234.util.PropertiesUtil;
 
 
 
@@ -22,7 +23,20 @@ public class UserDao {
 			resultUser.setUserId(rs.getInt("userId"));
 			resultUser.setUserName(rs.getString("userName"));
 			resultUser.setPassword(rs.getString("password"));
+			resultUser.setNickName(rs.getString("nickName"));
+			resultUser.setMood(rs.getString("mood"));
+			resultUser.setImageName(PropertiesUtil.getValue("imageFile")+rs.getString("imageName"));
 		}
 		return resultUser;
+	}
+	
+	public int userUpdate(Connection con,User user)throws Exception{
+		String sql="update t_user set nickName=?,imageName=?,mood=? where userId=?";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, user.getNickName());
+		pstmt.setString(2, user.getImageName());
+		pstmt.setString(3, user.getMood());
+		pstmt.setInt(4, user.getUserId());
+		return pstmt.executeUpdate();
 	}
 }

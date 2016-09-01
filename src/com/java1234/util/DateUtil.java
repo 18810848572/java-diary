@@ -22,6 +22,14 @@ public class DateUtil {
 		SimpleDateFormat sdf=new SimpleDateFormat(format);
 		return sdf.parse(str);
 	}
+
+
+	public static String getCurrentDateStr() {
+		// TODO Auto-generated method stub
+		Date date = new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddhhmmss");
+		return sdf.format(date);
+	}
 	
 	
 }
